@@ -4,6 +4,7 @@ import { Switch, Route } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
 import Users from "./components/Users";
 
+
 function App() {
   return (
     <div className="App">
@@ -21,5 +22,6 @@ function App() {
     </div>
   );
 }
+
 
 export default App;

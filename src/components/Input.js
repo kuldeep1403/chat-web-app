@@ -1,7 +1,6 @@
 import React from "react";
 import { BiPaperPlane } from "react-icons/bi";
 
-
 const Input = ({ message, setMessage, sendMessage }) => {
   return (
     <>

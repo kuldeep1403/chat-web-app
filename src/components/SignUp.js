@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import axios from "axios";
+import LoadingSpinner from "./LoadingSpinner";
 
 const SignUp = () => {
   const [name, setName] = useState("");
@@ -9,6 +10,7 @@ const SignUp = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [imageURL, setImageURL] = useState("");
+  const [loading, setLoading] = useState(false);
   const history = useHistory();
 
   const TransformFileData = (file) => {
@@ -37,6 +39,7 @@ const SignUp = () => {
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     try {
       const { data } = await axios.post(
         "https://justchattingserver.herokuapp.com/api/register",
@@ -48,7 +51,7 @@ const SignUp = () => {
           image: imageURL,
         }
       );
-      console.log(data);
+      setLoading(false);
       if (data) {
         if (data.errors) {
           const { email, password, name, username, image } = data.errors;
@@ -69,6 +72,7 @@ const SignUp = () => {
         }
       }
     } catch (err) {
+      setLoading(false);
       console.log(err);
     }
   };
@@ -127,9 +131,16 @@ const SignUp = () => {
               onChange={handleProductImageUpload}
             />
           </div>
-          <div className="field button">
-            <input type="submit" id="submit" value="Continue to Chat" />
-          </div>
+
+          {loading ? (
+            <div className="loading">
+              <LoadingSpinner />
+            </div>
+          ) : (
+            <div className="field button">
+              <input type="submit" id="submit" value="Continue to Chat" />
+            </div>
+          )}
         </form>
         <div className="link">
           Already signed up? <Link to="/login">Login now</Link>

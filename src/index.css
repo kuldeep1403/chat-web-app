@@ -238,8 +238,8 @@ body {
 .users-list a .status-dot.offline {
   color: #ccc;
 }
-.space{
-    margin-left: 50px;
+.space {
+  margin-left: 50px;
 }
 /* Chat Area CSS Start */
 .chat-area header {
@@ -339,13 +339,45 @@ body {
   font-size: 19px;
   cursor: pointer;
   opacity: 0.7;
-  pointer-events: none;
   border-radius: 0 5px 5px 0;
   transition: all 0.3s ease;
 }
 .typing-area button.active {
   opacity: 1;
   pointer-events: auto;
+}
+
+.spinner {
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+}
+.spinner:after {
+  content: " ";
+  display: block;
+  width: 40px;
+  height: 40px;
+  margin: 4px;
+  border-radius: 50%;
+  border: 6px solid #333;
+  border-color: #333 transparent #333 transparent;
+  animation: spinner 1.2s linear infinite;
+}
+@keyframes spinner {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+.centered {
+  margin: 3rem auto;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
 }
 
 /* Responive media query */

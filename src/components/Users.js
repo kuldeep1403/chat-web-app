@@ -33,7 +33,6 @@ const Users = () => {
       const { data } = await axios.post("https://justchattingserver.herokuapp.com/users", {
         token,
       });
-      console.log(data.status);
       if (!data.status) {
         localStorage.removeItem("userInfo");
         history.push("/login");
@@ -197,7 +196,6 @@ const Users = () => {
               {users &&
                 Object.keys(users).map((user, index) => (
                   <>
-                    {console.log()}
                     {users[user].username !== username ? (
                       <a hidden>
                         <div

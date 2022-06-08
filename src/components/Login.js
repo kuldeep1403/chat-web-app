@@ -2,10 +2,12 @@ import React, { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import axios from "axios";
+import LoadingSpinner from "./LoadingSpinner";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
   const history = useHistory();
 
   const generateError = (error) =>
@@ -15,6 +17,7 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     try {
       const { data } = await axios.post(
         "https://justchattingserver.herokuapp.com/api/login",
@@ -23,7 +26,7 @@ const Login = () => {
           password,
         }
       );
-      console.log(data);
+      setLoading(false);
       if (data) {
         if (data.errors) {
           const { email, password } = data.errors;
@@ -35,6 +38,7 @@ const Login = () => {
         }
       }
     } catch (err) {
+      setLoading(false);
       console.log(err);
     }
   };
@@ -62,9 +66,15 @@ const Login = () => {
               onChange={(e) => setPassword(e.target.value)}
             />
           </div>
-          <div className="field button" onClick={handleSubmit}>
-            <input type="submit" name="submit" value="Continue to Chat" />
-          </div>
+          {loading ? (
+            <div className="centered">
+              <LoadingSpinner/>
+            </div>
+          ) : (
+            <div className="field button" onClick={handleSubmit}>
+              <input type="submit" name="submit" value="Continue to Chat" />
+            </div>
+          )}
         </form>
         <div className="link">
           Not yet signed up? <Link to="/">Signup now</Link>
