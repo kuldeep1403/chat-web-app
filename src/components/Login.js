@@ -23,7 +23,7 @@ const Login = () => {
           password,
         }
       );
-
+      console.log(data);
       if (data) {
         if (data.errors) {
           const { email, password } = data.errors;
