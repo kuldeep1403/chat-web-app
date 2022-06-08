@@ -39,8 +39,7 @@ const SignUp = () => {
     e.preventDefault();
     try {
       const { data } = await axios.post(
-        // "https://justchattingserver.herokuapp.com/api/register"
-        "http://localhost:3001/api/register",
+        "https://justchattingserver.herokuapp.com/api/register",
         {
           name,
           username,

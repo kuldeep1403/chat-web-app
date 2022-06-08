@@ -30,7 +30,7 @@ const Users = () => {
       if (!token) {
         history.push("/login");
       }
-      const { data } = await axios.post("http://localhost:3001/users", {
+      const { data } = await axios.post("https://justchattingserver.herokuapp.com/users", {
         token,
       });
       console.log(data.status);
@@ -52,7 +52,7 @@ const Users = () => {
   };
 
   useEffect(() => {
-    const Endpoint = "http://localhost:3001";
+    const Endpoint = "https://justchattingserver.herokuapp.com";
     const socketTEMP = socketio(Endpoint, {
       withCredentials: true,
     });
