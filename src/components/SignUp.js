@@ -45,8 +45,9 @@ const SignUp = () => {
           username,
           email,
           password,
-          image: imageURL,
-        }
+          image:imageURL
+        },
+        { withCredentials: true }
       );
       console.log(data);
       if (data) {
@@ -76,7 +77,9 @@ const SignUp = () => {
     <div className="wrapper">
       <section className="form signup">
         <header>Realtime Chat App</header>
-        <form onSubmit={(e) => handleFormSubmit(e)}>
+        <form
+          onSubmit={(e) => handleFormSubmit(e)}
+        >
           <div className="error-text"></div>
           <div className="name-details">
             <div className="field input">

@@ -28,7 +28,10 @@ const Users = () => {
       } else {
         const { data } = await axios.post(
           "https://justchattingserver.herokuapp.com/users",
-          {}
+          {},
+          {
+            withCredentials: true,
+          }
         );
         if (!data.status) {
           removeCookie("jwt");
