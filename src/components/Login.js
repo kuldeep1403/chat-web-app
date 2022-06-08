@@ -17,7 +17,8 @@ const Login = () => {
     e.preventDefault();
     try {
       const { data } = await axios.post(
-        "https://justchattingserver.herokuapp.com/api/login",
+        // "https://justchattingserver.herokuapp.com/api/login"
+        "http://localhost:3001/api/login",
         {
           email,
           password,
@@ -30,6 +31,7 @@ const Login = () => {
           if (email) generateError(email);
           else if (password) generateError(password);
         } else {
+          localStorage.setItem("userInfo", JSON.stringify(data));
           history.push("/users");
         }
       }

@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useHistory } from "react-router-dom";
-import { useCookies } from "react-cookie";
 import axios from "axios";
 import { BsDot } from "react-icons/bs";
 import socketio from "socket.io-client";
@@ -8,7 +7,6 @@ import Chat from "./Chat";
 
 const Users = () => {
   const history = useHistory();
-  const [cookies, removeCookie] = useCookies([]);
   const [username, setUserName] = useState("");
   const [users, setUsers] = useState({});
   const [receiver, setReceiver] = useState("");
@@ -19,37 +17,42 @@ const Users = () => {
   const [imageUrl, setImageUrl] = useState("");
   const [seletedUserPic, setSelectedUserPic] = useState("");
   const [socket, setSocket] = useState();
-
+  const userInfo = localStorage.getItem("userInfo");
   //user Authentication logout functionality
   useEffect(() => {
     const verifyUser = async () => {
-      if (!cookies.jwt) {
+      if (!userInfo) {
+        history.push("/login");
+        return;
+      }
+      const obj = JSON.parse(userInfo);
+      const token = obj.token;
+      if (!token) {
+        history.push("/login");
+      }
+      const { data } = await axios.post("http://localhost:3001/users", {
+        token,
+      });
+      console.log(data.status);
+      if (!data.status) {
+        localStorage.removeItem("userInfo");
         history.push("/login");
       } else {
-        const { data } = await axios.post(
-          "https://justchattingserver.herokuapp.com/users",
-          {}
-        );
-        if (!data.status) {
-          removeCookie("jwt");
-          history.push("/login");
-        } else {
-          setUserName(data.user.name);
-          setImageUrl(data.user.image.url);
-        }
+        setUserName(data.user.name);
+        setImageUrl(data.user.image.url);
       }
     };
     verifyUser();
-  }, [cookies, history, removeCookie]);
+  }, [history, userInfo]);
 
   const handleLogout = () => {
-    removeCookie("jwt");
+    localStorage.removeItem("userInfo");
     history.push("/login");
     socket.emit("force-disconnect");
   };
 
   useEffect(() => {
-    const Endpoint = "https://justchattingserver.herokuapp.com/";
+    const Endpoint = "http://localhost:3001";
     const socketTEMP = socketio(Endpoint, {
       withCredentials: true,
     });
