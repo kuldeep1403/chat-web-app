@@ -27,7 +27,7 @@ const Users = () => {
         history.push("/login");
       } else {
         const { data } = await axios.post(
-          "http://localhost:3001/users",
+          "https://justchattingserver.herokuapp.com/users",
           {},
           {
             withCredentials: true,
@@ -52,7 +52,7 @@ const Users = () => {
   };
 
   useEffect(() => {
-    const Endpoint = "http://localhost:3001";
+    const Endpoint = "https://justchattingserver.herokuapp.com/";
     const socketTEMP = socketio(Endpoint, {
       withCredentials: true,
     });

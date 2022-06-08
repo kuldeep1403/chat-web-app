@@ -18,7 +18,7 @@ const Login = () => {
     e.preventDefault();
     try {
       const { data } = await axios.post(
-        "http://localhost:3001/api/login",
+        "https://justchattingserver.herokuapp.com/api/login",
         {
           email,
           password,
