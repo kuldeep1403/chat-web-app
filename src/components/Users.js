@@ -30,7 +30,7 @@ const Users = () => {
           "https://justchattingserver.herokuapp.com/users",
           {},
           {
-            withCredentials: true,
+            withCredentials: false,
           }
         );
         if (!data.status) {

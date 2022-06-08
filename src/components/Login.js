@@ -23,7 +23,7 @@ const Login = () => {
           email,
           password,
         },
-        { withCredentials: true }
+        { withCredentials: false}
       );
 
       if (data) {
