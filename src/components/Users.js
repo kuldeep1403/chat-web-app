@@ -28,10 +28,7 @@ const Users = () => {
       } else {
         const { data } = await axios.post(
           "https://justchattingserver.herokuapp.com/users",
-          {},
-          {
-            withCredentials: true,
-          }
+          {}
         );
         if (!data.status) {
           removeCookie("jwt");
@@ -52,7 +49,7 @@ const Users = () => {
   };
 
   useEffect(() => {
-    const Endpoint = "https://justchattingserver.herokuapp.com/";
+    const Endpoint = "https://justchattingserver.herokuapp.com";
     const socketTEMP = socketio(Endpoint, {
       withCredentials: true,
     });
