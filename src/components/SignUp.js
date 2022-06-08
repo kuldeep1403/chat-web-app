@@ -47,7 +47,7 @@ const SignUp = () => {
           password,
           image:imageURL
         },
-        { withCredentials: false }
+        { withCredentials: true }
       );
       console.log(data);
       if (data) {

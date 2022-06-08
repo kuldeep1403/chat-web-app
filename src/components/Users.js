@@ -30,7 +30,7 @@ const Users = () => {
           "https://justchattingserver.herokuapp.com/users",
           {},
           {
-            withCredentials: false,
+            withCredentials: true,
           }
         );
         if (!data.status) {
@@ -52,7 +52,7 @@ const Users = () => {
   };
 
   useEffect(() => {
-    const Endpoint = "https://justchattingserver.herokuapp.com";
+    const Endpoint = "https://justchattingserver.herokuapp.com/";
     const socketTEMP = socketio(Endpoint, {
       withCredentials: true,
     });
